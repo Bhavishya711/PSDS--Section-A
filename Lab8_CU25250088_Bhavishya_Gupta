@@ -1,0 +1,76 @@
+# 1.Given an array of N integers, find the maximum sum of any contiguous subarray of size K.
+'''
+N, K = map(int, input("Enter N and K: ").split())
+arr = list(map(int, input("Enter the array: ").split()))
+
+window_sum = sum(arr[:K])
+max_sum = window_sum
+
+for i in range(K, N):
+    window_sum += arr[i] - arr[i - K]
+    max_sum = max(max_sum, window_sum)
+
+print("Maximum Sum:", max_sum)
+
+'''
+
+# 2.Given a string S, find the length of the longest substring without repeating characters.
+'''
+S = input("Enter the string: ")
+
+seen = set()
+left = 0
+max_length = 0
+
+for right in range(len(S)):
+    # Remove characters until there is no duplicate
+    while S[right] in seen:
+        seen.remove(S[left])
+        left += 1
+
+    seen.add(S[right])
+
+    # Update maximum length
+    max_length = max(max_length, right - left + 1)
+
+print("Length of longest substring:", max_length)
+
+
+'''
+
+''' 3.You are given a weighted, undirected graph with N nodes and M edges.
+Find the shortest path from node 1 to node N such that the path uses at most K edges.
+If no such path exists, output -1.'''
+
+'''
+N, M, K = map(int, input("Enter N, M and K: ").split())
+
+edges = []
+
+for _ in range(M):
+    u, v, w = map(int, input().split())
+    edges.append((u, v, w))
+
+INF = float('inf')
+dist = [INF] * (N + 1)
+dist[1] = 0
+
+# Use at most K edges
+for _ in range(K):
+    new_dist = dist.copy()
+
+    for u, v, w in edges:
+        if dist[u] != INF:
+            new_dist[v] = min(new_dist[v], dist[u] + w)
+
+        if dist[v] != INF:
+            new_dist[u] = min(new_dist[u], dist[v] + w)
+
+    dist = new_dist
+
+if dist[N] == INF:
+    print(-1)
+else:
+    print("Minimum path weight:", dist[N])
+
+'''
