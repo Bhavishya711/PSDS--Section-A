@@ -1,0 +1,19 @@
+def solve(N, nums):
+    freq = {}
+
+    for num in nums:
+        digit_sum = sum(map(int, str(num)))
+        freq[digit_sum] = freq.get(digit_sum, 0) + 1
+
+    answer = 0
+
+    for count in freq.values():
+        answer += count * count
+
+    return answer
+
+
+N = int(input())
+nums = list(map(int, input().split()))
+
+print("Output:", solve(N, nums))

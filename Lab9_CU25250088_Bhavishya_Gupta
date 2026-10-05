@@ -1,0 +1,24 @@
+def solve(N, A):
+    total = sum(A)
+
+    # Number of operations must be -total
+    if total > 0:
+        return -1
+
+    positive_sum = sum(x for x in A if x > 0)
+    negative_sum = sum(x for x in A if x < 0)
+
+    # Enough -1 operations must be available
+    if 2 * positive_sum > -negative_sum:
+        return -1
+
+    return -total
+
+
+T = int(input())
+
+for _ in range(T):
+    N = int(input())
+    A = list(map(int, input().split()))
+
+    print(solve(N, A))
